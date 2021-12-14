@@ -59,7 +59,7 @@ function allWagesFor(employeeRecordObject) {
     }
     return wagesArray.reduce(function(total, num){
         return total + num
-    })
+    }, 0)
 }
 
 
