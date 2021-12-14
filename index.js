@@ -37,27 +37,49 @@ function createTimeOutEvent(employeeRecordObject, dateStamp) {
 }
 
 function hoursWorkedOnDate(employeeRecordObject, dateStamp) {
-    let timeInArray = employeeRecordObject.timeInEvents
+    let timeInDate = employeeRecordObject.timeInEvents.find(function (e) {
+        return e.date === dateStamp
+    })
+    let timeOutDate = employeeRecordObject.timeOutEvents.find(function (e) {
+        return e.date === dateStamp
+    })
+    return (timeOutDate.hour - timeInDate.hour) / 100
+}
 
-    timeInArray.forEach(function () {
-        for (data in timeInArray) {
-            if (date === dateStamp) {
-                let inHours = employeeRecordObject.timeInEvents.hour.split("").slice(0, 2).join("")
-                let inMinutes = employeeRecordObject.timeInEvents.hour.split("").slice(2).join("")
-                let outHours = employeeRecordObject.timeOutEvents.hour.split("").slice(0, 2).join("")
-                let outMinutes = employeeRecordObject.timeOutEvents.hour.split("").slice(2).join("")
+function wagesEarnedOnDate(employeeRecordObject, dateStamp) {
+    return (hoursWorkedOnDate(employeeRecordObject, dateStamp) * employeeRecordObject.payPerHour)
+}
 
-
-                let totalHours = (outHours - inHours) + ((outMinutes - inMinutes) / 60)
-
-                return totalHours
-            }
+function allWagesFor(employeeRecordObject) {
+    let wagesArray = []
+    for (let key in employeeRecordObject) {
+        for (let i = 0; i <= employeeRecordObject.timeInEvents.length; i++) {
+            return wagesArray.push(wagesEarnedOnDate(employeeRecordObject, employeeRecordObject.timeInEvents[i]))
         }
+    }
+    return wagesArray.reduce(function(total, num){
+        return total + num
     })
 }
 
 
 
+    // let availableDates = []
+    //   employeeRecordObject.timeInEvents.forEach(input => {
+    //     for(let key in input){
+    //       if(key === 'date'){
+
+    //         availableDates.push(input[key])
+
+    //       }
+    //     }
+    //     return availableDates
+    //   })
+      
+    
+  
+// iterate through employeeRecordObject, if there is a date, do wagesEarnedOnDate for that date, then push it to the array of wages
+//then use reduce on that array
 
 
 
@@ -70,15 +92,5 @@ function hoursWorkedOnDate(employeeRecordObject, dateStamp) {
 
 
 
-// function hoursWorkedOnDate(employeeRecordObject, dateStamp) {
-//     for (const key in employeeRecordObject) {
-//         if (employeeRecordObject.timeInEvents.date === dateStamp) {
-//             let hoursWorked = employeeRecordObject.timeOutEvents.timeInEvents.hour.split("").slice(0, 2).join("")
-//             let minutesWorked = employeeRecordObject.timeOutEvents.timeInEvents.hour.split("").slice(2).join("")
 
-//             let totalHours = hoursWorked + (minutesWorked / 60)
 
-//             return totalHours
-//         }
-//     }
-// }
