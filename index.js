@@ -47,17 +47,43 @@ function hoursWorkedOnDate(employeeRecordObject, dateStamp) {
 }
 
 function wagesEarnedOnDate(employeeRecordObject, dateStamp) {
-    return (hoursWorkedOnDate(employeeRecordObject, dateStamp) * employeeRecordObject.payPerHour)
+    return (hoursWorkedOnDate(employeeRecordObject, dateStamp.date) * employeeRecordObject.payPerHour)
 }
 
 function allWagesFor(employeeRecordObject) {
     let sum = 0
-    for (let i = 0; i <= employeeRecordObject.timeInEvents.length; i++) {
+    for (let i = 0; i < employeeRecordObject.timeInEvents.length; i++) {
         let wagesPerDate = wagesEarnedOnDate(employeeRecordObject, employeeRecordObject.timeInEvents[i])
         sum += wagesPerDate
     }
     return sum
 }
+
+
+function calculatePayroll(employeeArray){
+    let sum = 0
+    for (let i = 0; i < employeeArray.length; i++){
+        let totalWages = allWagesFor(employeeArray[i])
+        sum += totalWages
+    }
+    return sum
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
