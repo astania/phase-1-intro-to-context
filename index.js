@@ -51,15 +51,12 @@ function wagesEarnedOnDate(employeeRecordObject, dateStamp) {
 }
 
 function allWagesFor(employeeRecordObject) {
-    let wagesArray = []
-    for (let key in employeeRecordObject) {
-        for (let i = 0; i <= employeeRecordObject.timeInEvents.length; i++) {
-            return wagesArray.push(wagesEarnedOnDate(employeeRecordObject, employeeRecordObject.timeInEvents[i]))
-        }
+    let sum = 0
+    for (let i = 0; i <= employeeRecordObject.timeInEvents.length; i++) {
+        let wagesPerDate = wagesEarnedOnDate(employeeRecordObject, employeeRecordObject.timeInEvents[i])
+        sum += wagesPerDate
     }
-    return wagesArray.reduce(function(total, num){
-        return total + num
-    }, 0)
+    return sum
 }
 
 
@@ -75,9 +72,9 @@ function allWagesFor(employeeRecordObject) {
     //     }
     //     return availableDates
     //   })
-      
-    
-  
+
+
+
 // iterate through employeeRecordObject, if there is a date, do wagesEarnedOnDate for that date, then push it to the array of wages
 //then use reduce on that array
 
